@@ -6,9 +6,20 @@ const STATIC_CACHE_NAME = APP_NAME.concat("_static")
 const FETCHED_CACHE_NAME = APP_NAME.concat("_fetched")
 
 /**
+ * Get the application scope
+ * example: https://my.site/<scope>/index.html
+ * The value could possibly be empty
+ */
+const locationPath = (() => {
+  let locationHrefChunks = location.href.split('/')
+  locationHrefChunks.pop()
+  return locationHrefChunks.join('/').concat('/')
+})()
+
+/**
  * White list of cache
  */
-const CACHE_WHITELIST = ['']
+const CACHE_WHITELIST = [STATIC_CACHE_NAME]
 
 /**
  * White list of url origin
@@ -31,17 +42,17 @@ const static_files = [
   'assets/picsum-206.jpg',
   'assets/picsum-306.jpg',
   'assets/picsum-924.jpg'
-]
+].map(path => (locationPath).concat(path))
 
 /**
  * INSTALL
  * > cache static assets
  */
- self.addEventListener('install', event => {
-  event.waitUntil(async () => {
+self.addEventListener('install', event => {
+  event.waitUntil((async () => {
     let cache = await caches.open(STATIC_CACHE_NAME)
     await cache.addAll(static_files)
-  })
+  })())
 })
 
 /**
