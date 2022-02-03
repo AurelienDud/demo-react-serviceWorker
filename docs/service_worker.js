@@ -31,7 +31,7 @@ const static_files = [
   'assets/picsum-206.jpg',
   'assets/picsum-306.jpg',
   'assets/picsum-924.jpg'
-]
+].map(path => (location.href).concat(path)) 
 
 /**
  * INSTALL
