@@ -1,11 +1,11 @@
 {
   "name": "demoreactsw",
   "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint --cache --fix --ext .tsx,.ts,.jsx,.js src public"
+    "lint": "eslint --cache --fix --ext .tsx,.ts,.jsx,.js src workers"
   },
   "dependencies": {
     "react": "^17.0.2",
