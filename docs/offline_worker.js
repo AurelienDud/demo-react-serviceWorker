@@ -29,13 +29,12 @@ const APP_PATH = (() => {
 })()
 
 /**
- * Static assets
+ * Prefetched resources
  */
-const static_files = [
+const PREFETCHED_RESOURCES = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/offline_worker.js',
   '/assets/index.css',
   '/assets/index.js',
   '/assets/vendor.js',
@@ -48,16 +47,27 @@ const static_files = [
 
 /**
  * ON INSTALL
+ * cache prefetched resources
  */
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(static_files))
+      .then(cache => cache.addAll(PREFETCHED_RESOURCES))
   )
 })
 
 /**
+ * ON ACTIVATE
+ * claim: Allow to use the service worker directly
+ * https://developer.mozilla.org/en-US/docs/Web/API/Clients/claim
+ */
+self.addEventListener('activate', () => {
+  clients.claim()
+})
+
+/**
  * ON FETCH
+ * Catch fetch requests to handle them
  */
 self.addEventListener('fetch', event => {
   let url = new URL(event.request.url)

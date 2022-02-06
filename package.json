@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "dev": "yarn run build && yarn run preview",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint --cache --fix --ext .tsx,.ts,.jsx,.js src workers"
